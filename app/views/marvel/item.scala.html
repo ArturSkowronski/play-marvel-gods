@@ -1,0 +1,39 @@
+@import domain.marvel.MarvelAPIObject
+@import play.api.Play.current
+
+@(marvelAPIObject: MarvelAPIObject)
+
+@main("Marvel API") {
+	<div class="col-md-12 well" style="background: url('https://lh4.ggpht.com/ZlOwpwUhsIp-HeIDCjQ0bZDRQpYGV3x92DEyD_JB1QYcvSYiTukt5W9RESZctdbvznJT=w300') #f9f9f9 right bottom no-repeat">
+		<div class="col-md-4"><img style="box-shadow: 0 0 1em black;" src="@marvelAPIObject.thumbnail0path/@current.configuration.getString("marvel.characters.item.image")"></div>
+		<div class="col-md-8">
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Name</b></div>
+				<div class="col-md-7"> @marvelAPIObject.name</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Description</b></div>
+				<div class="col-md-7"> @marvelAPIObject.description</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Comics</b></div>
+				<div class="col-md-7"> @marvelAPIObject.comics0available</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Series</b></div>
+				<div class="col-md-7"> @marvelAPIObject.series0available</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Stories</b></div>
+				<div class="col-md-7"> @marvelAPIObject.stories0available</div>
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-5"> <b>Events</b></div>
+				<div class="col-md-7"> @marvelAPIObject.events0available</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="col-md-12 well">
+		<a href="/characters"><- Return to Previous Page</a></div>
+}

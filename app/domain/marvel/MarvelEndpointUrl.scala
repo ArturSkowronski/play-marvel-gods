@@ -2,7 +2,6 @@ package domain.marvel
 
 import java.math.BigInteger
 import java.nio.charset.Charset
-import java.sql.Time
 import java.util.{Date, Locale}
 
 import play.api.Play.current
@@ -16,8 +15,6 @@ import play.api.libs.ws.{WS}
  */
 
 class MarvelEndpointUrl{}
-
-
 
 object MarvelEndpointUrl {
 
@@ -34,8 +31,9 @@ object MarvelEndpointUrl {
 	def url(endpoint: String) = {
 		val timestamp = new Date().getTime
 		val fullUrl = s"$apiUrl$endpoint"
+
 		WS.url(fullUrl)
-			.withQueryString(("ts", timestamp.toString))
+			.withQueryString(("ts", s"$timestamp"))
 			.withQueryString(("apikey", apiKey))
 			.withQueryString(("hash", md5String(s"$timestamp$privateKey$apiKey")))
 

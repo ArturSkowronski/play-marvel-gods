@@ -6,10 +6,15 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.1"
 
+resolvers += "repo.codahale.com" at "http://repo.codahale.com"
+
 libraryDependencies ++= Seq(
 	jdbc,
 	anorm,
-	"com.twitter" %% "finagle-http" % "6.24.0",
 	cache,
 	ws
 )
+
+libraryDependencies += "org.json4s" %% "json4s-jackson" % "3.2.11"
+
+scalacOptions ++= Seq("-language:dynamics")

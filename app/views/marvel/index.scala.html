@@ -1,0 +1,19 @@
+@import domain.marvel.MarvelAPIList
+
+@(marvelAPIList: MarvelAPIList)
+@import play.api.Play.current
+
+@main("Marvel API Characters") {
+
+	<div class="container">
+		<div class="row" style="margin-top:25px">
+		@for(marvelAPIObject <- marvelAPIList) {
+			<div class="col-md-12 well">
+				<div class="col-md-2"><img style="box-shadow: 0 0 1em black;"  src="@marvelAPIObject.thumbnail0path/@current.configuration.getString("marvel.characters.index.image")"></div>
+				<div class="col-md-8"><a href="/characters/@marvelAPIObject.id"><i class="fa fa-eye-lg"></i>@marvelAPIObject.name</a></div>
+			</div>
+
+		}
+		</div>
+	</div>
+}
