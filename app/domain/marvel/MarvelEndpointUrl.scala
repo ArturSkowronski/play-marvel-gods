@@ -2,7 +2,8 @@ package domain.marvel
 
 import java.math.BigInteger
 import java.nio.charset.Charset
-import java.util.Locale
+import java.sql.Time
+import java.util.{Date, Locale}
 
 import play.api.Play.current
 
@@ -20,22 +21,23 @@ class MarvelEndpointUrl{}
 
 object MarvelEndpointUrl {
 
-	val apiKey = current.configuration.getString("marvel.public")
-	val privateKey = current.configuration.getString("marvel.secret")
+	val apiKey = current.configuration.getString("marvel.public").get
+	val privateKey = current.configuration.getString("marvel.secret").get
+	val apiUrl = current.configuration.getString("marvel.url").get
 
 	def md5String(s: String) = {
 		val data = MessageDigest.getInstance("MD5")
 		data.update(s.getBytes(Charset.forName("UTF-8")))
 		String.format(Locale.ROOT, "%032x", new BigInteger(1, data.digest))
-
 	}
 
-	def url(fullUrl: String) = {
-		val timestamp = "1"
+	def url(endpoint: String) = {
+		val timestamp = new Date().getTime
+		val fullUrl = s"$apiUrl$endpoint"
 		WS.url(fullUrl)
-			.withQueryString(("ts", timestamp))
-			.withQueryString(("apikey", apiKey.get))
-			.withQueryString(("hash", md5String(timestamp + privateKey.get + apiKey.get)))
+			.withQueryString(("ts", timestamp.toString))
+			.withQueryString(("apikey", apiKey))
+			.withQueryString(("hash", md5String(s"$timestamp$privateKey$apiKey")))
 
 	}
 }
