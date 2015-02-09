@@ -28,14 +28,17 @@ object MarvelEndpointUrl {
 		String.format(Locale.ROOT, "%032x", new BigInteger(1, data.digest))
 	}
 
-	def url(endpoint: String) = {
+	def url(endpoint: String, parameters: Map[String, String]) = {
 		val timestamp = new Date().getTime
 		val fullUrl = s"$apiUrl$endpoint"
 
-		WS.url(fullUrl)
+		val WService = WS.url(fullUrl)
 			.withQueryString(("ts", s"$timestamp"))
 			.withQueryString(("apikey", apiKey))
 			.withQueryString(("hash", md5String(s"$timestamp$privateKey$apiKey")))
+
+		parameters.foreach {keyVal => WService.withQueryString(keyVal)}
+		WService
 
 	}
 }

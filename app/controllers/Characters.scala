@@ -8,8 +8,9 @@ import play.libs.Json
 
 object Characters extends Controller {
 
-	def index = Action.async {
-		val holder = MarvelEndpointUrl.url("characters")
+	def index(page: Option[Int]) = Action.async {
+
+		val holder = MarvelEndpointUrl.url("characters",  Map[String, String]("offshot"-> (20 * page.getOrElse(0)).toString))
 
 		val futureResponse = holder.get()
 		futureResponse.map {
@@ -22,7 +23,7 @@ object Characters extends Controller {
 	}
 
 	def get(id: Long)   = Action.async {
-		val holder = MarvelEndpointUrl.url(s"characters/$id")
+		val holder = MarvelEndpointUrl.url(s"characters/$id", Map[String, String]("offshot"->""))
 
 		val futureResponse = holder.get()
 		futureResponse.map {
