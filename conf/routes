@@ -4,7 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /characters                 controllers.Characters.index(page: Option[String])
+GET     /characters                 controllers.Characters.index(page: Option[Int])
 GET     /characters/:id             controllers.Characters.get(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
