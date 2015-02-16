@@ -1,15 +1,16 @@
-def myMethod(dupa: String) = s"Love me tender love me now $dupa"
-def toList(dupa: String) = List(dupa)
+import java.util
 
-myMethod("fire")
-def sum(a: String, b: String) = a + b
+val list = new util.ArrayList[Any]
+list add 's'
+list add 1
 
-//concated.toString()
+val ref = 1
+var ref2 = 2
 
+def test(s:String) ={
+  if(s.length > 1) Some("data":String) else None
+}
 
-val evenNumbers = List(2, 4, 6, 8, 10)
-evenNumbers.foldLeft(0) { (a: Int, b:Int) => a + b }
-
-val list = List("dupa","Dupa2")
-val concated = list.foldLeft("test"){ (a:String, b:String) => sum(a, b)}
-"a".exists({_ == "a"})
+println("data" + test("s").getOrElse("pffff"))
+def max(values: Int*) = values.foldLeft(values(0)) { Math.max }
+max(1,2,3,4,23,2)
